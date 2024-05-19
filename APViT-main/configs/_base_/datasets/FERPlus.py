@@ -41,7 +41,7 @@ test_pipeline = [
     dict(type='Collect', keys=['img', 'gt_label', 'coarse_label'])
 ]
 
-base_path = 'data/FERPlus/'
+base_path = '../../../input/ferplus/FERPlus/'
 image_path = base_path + 'Image/'    # we use realigned images
 
 data = dict(

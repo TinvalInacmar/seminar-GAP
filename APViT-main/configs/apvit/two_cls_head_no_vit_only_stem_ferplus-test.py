@@ -21,7 +21,7 @@ model = dict(
     ),
     head=dict(
         type='CFTreeHead',
-        pretrained='weights/head_weights.pth',
+        pretrained='../../../input/vit-small/vit_small_p16_224-15ec54c9.pth',
         neg_label_in_coarse=0,
         neg_num_classes=6, #
         coarse_num_classes=3,
