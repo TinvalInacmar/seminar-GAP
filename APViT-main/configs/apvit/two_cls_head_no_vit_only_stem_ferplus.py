@@ -25,8 +25,8 @@ model = dict(
         coarse_num_classes=3,
         neg_label_in_coarse=0,
         in_channels=256,
-        coarse_weight=2,
-        neg_weight=1,
+        coarse_weight=1,
+        neg_weight=2,
         # loss=dict(type='CrossEntropyLoss', loss_weight=1.0),
         topk=(1, ))
 )
