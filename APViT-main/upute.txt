@@ -1,0 +1,15 @@
+classifier head 7-> 3 #linear cls head veliki model
+
+classifier head 7-> 6 #linear cls head mali model
+
+
+convert_three_emotions.py 
+-promjeni path do dataseta i runnaj lokalno
+df.to_csv('data/RAF-DB/basic/EmoLabel/val_condensed.txt', index=False, header=None) #promijeni svaki path
+
+
+configs/dataset 
+ferplus_negativ - prepravi liniju 55. itd.
+
+
+mali model- hiperparamteri kao iz papira, manje vrijednosti

@@ -1,0 +1,11 @@
+EpochBasedRunner -> train -> runIter
+
+
+Pooling_vit_classifier(mmcls/models/classifiers)
+-forward_train()
+
+linear_head
+-forward_train(x,gt_label)
+	->cls_score = self.fc(x)
+	->losses = self.loss(cls_score, gt_label) --> CLSHead-loss(cls_score,gt_label) - returns losses['ce_loss'] 
+	->        return losses
