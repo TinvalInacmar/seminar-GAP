@@ -324,6 +324,7 @@ class PoolingViT(BaseBackbone):
                  vit_pool_configs=None,
                  multi_head_fusion=False,
                  sum_batch_mean=False,
+                 multi_finetune=False,
                  **kwargs):
         super().__init__()
         if kwargs:
@@ -393,7 +394,7 @@ class PoolingViT(BaseBackbone):
         self.s2_pooling = nn.MaxPool2d(kernel_size=2)
 
         if pretrained:
-            self.init_weights(pretrained, patch_num)
+            self.init_weights(pretrained, multi_finetune, patch_num)
         else:
             trunc_normal_(self.patch_pos_embed, std=.02)
             trunc_normal_(self.cls_token, std=.02)
@@ -401,7 +402,7 @@ class PoolingViT(BaseBackbone):
         if freeze:
             self.apply(self._freeze_weights)
 
-    def init_weights(self, pretrained, patch_num=0):
+    def init_weights(self, pretrained, multi_finetune, patch_num=0):
         logger = get_root_logger()
         logger.warning(f'{self.__class__.__name__} load pretrain from {pretrained}')
         state_dict = torch.load(pretrained, map_location='cpu')
@@ -409,6 +410,11 @@ class PoolingViT(BaseBackbone):
             state_dict = state_dict['model']
         if 'state_dict' in state_dict:
             state_dict = state_dict['state_dict']
+
+        if multi_finetune:
+            load_state_dict(self, state_dict, strict=False, logger=logger)
+            return
+
         pos_embed = state_dict['pos_embed']     # [1, 197, 768] for base
         patch_pos_embed = pos_embed[:, 1:, :]
 

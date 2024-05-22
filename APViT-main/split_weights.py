@@ -59,4 +59,4 @@ import sys
 # target_dir = args[1]
 
 
-separate_and_save_weights("C:\\Users\\Valentin\\Desktop\\github\\seminar-2-heads-global-pool\\seminar-big-three\\APViT-main\\epoch_20.pth", "C:\\Users\\Valentin\\Desktop\\github\\seminar-2-heads-global-pool\\seminar-big-three\\APViT-main\\")
+separate_and_save_weights("C:\\Users\\Valentin\\Desktop\\github\\seminar-2-heads-global-pool\\seminar-big-three\\APViT-main\\epoch_20.pth", "C:\\Users\\Valentin\\Desktop\\github\\seminar-2-heads-global-pool\\seminar-big-three\\APViT-main\\weights\\")

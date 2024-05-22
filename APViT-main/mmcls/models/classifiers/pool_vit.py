@@ -36,7 +36,9 @@ class PoolingVitClassifier(BaseClassifier):
                     param.requires_grad = False
         if convert:
             self.convert = build_neck(convert)
-        self.vit:nn.Module = build_backbone(vit)
+
+        if vit:
+            self.vit:nn.Module = build_backbone(vit)
 
         if neck is not None:
             self.neck = build_neck(neck)
@@ -49,30 +51,30 @@ class PoolingVitClassifier(BaseClassifier):
     def init_weights(self, pretrained=None):
         super().init_weights(pretrained)
         # self.backbone.init_weights(pretrained=pretrained)
-        if self.with_neck:
-            if isinstance(self.neck, nn.Sequential):
-                for m in self.neck:
-                    m.init_weights()
-            else:
-                self.neck.init_weights()
-        if self.with_head:
-            self.head.init_weights()
+        # if self.with_neck:
+        #     if isinstance(self.neck, nn.Sequential):
+        #         for m in self.neck:
+        #             m.init_weights()
+        #     else:
+        #         self.neck.init_weights()
+        # if self.with_head:
+        #     self.head.init_weights()
 
     def extract_feat(self, img):
         """Directly extract features from the backbone + neck
         """
-        aux_loss = dict()
+        aux_loss = None
         if hasattr(self, 'extractor'):
             x = self.extractor(img)
         else:
             x = img
         if hasattr(self, 'convert'):
             x = self.convert(x)
-        else:
+        if hasattr(self, 'vit'):
             x = dict(x=x)
-        x = self.vit(**x)
+            x = self.vit(**x)
         if isinstance(x, dict):
-            aux_loss.update(x['loss'])
+            aux_loss = x['loss']
             x = x['x']
         if self.with_neck:
             x = self.neck(x)
@@ -90,7 +92,7 @@ class PoolingVitClassifier(BaseClassifier):
         x = self.vit(**x)
         return x['attn_map']
 
-    def forward_train(self, img, gt_label, au_label=None, **kwargs):
+    def forward_train(self, img, gt_label, au_label=None,**kwargs):
         """Forward computation during training.
 
         Args:
@@ -103,16 +105,17 @@ class PoolingVitClassifier(BaseClassifier):
         Returns:
             dict[str, Tensor]: a dictionary of loss components
         """
-        x, aux_loss = self.extract_feat(img)
+        x, _ = self.extract_feat(img)
 
         if au_label is None:
-            losses = self.head.forward_train(x, gt_label)
+            coarse_label = kwargs['coarse_label']
+            losses = self.head.forward_train(x, gt_label,coarse_label)
         else:
             losses = self.head.forward_train(x, gt_label, au_label)
         # losses['ce_loss'] = losses['loss']
         # losses['loss'] *= 0.
         # losses['aux_loss'] = aux_loss
-        losses.update(aux_loss)
+        # losses.update(aux_loss)
 
         return losses
 

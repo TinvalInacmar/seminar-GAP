@@ -40,7 +40,8 @@ class LinearClsHead(ClsHead):
 
         self._init_layers()
         
-        self.init_weights(pretrained)            
+        if pretrained:
+            self.init_weights(pretrained)            
 
     def _init_layers(self):
         self.fc = nn.Linear(self.in_channels, self.num_classes)

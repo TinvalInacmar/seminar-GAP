@@ -11,7 +11,7 @@
             "request": "launch",
             "program": "${file}",
             "console": "integratedTerminal",
-            "args": "configs/apvit/two_cls_head_no_vit_only_stem_ferplus-test.py --metric save_result",
+            "args": "configs/apvit/two_cls_head_no_vit_only_stem_ferplus.py",
             "justMyCode": false
         }
     ]

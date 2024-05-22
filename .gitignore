@@ -2,3 +2,13 @@
 /APViT-main/data
 /APViT-main/dobiveni_file
 /APViT-main/weights
+APViT-main/mmcls/models/vit/__pycache__/vit.cpython-311.pyc
+APViT-main/mmcls/models/vit/__pycache__/vit.cpython-311.pyc
+APViT-main/mmcls/models/vit/__pycache__/vit_siam_merge.cpython-311.pyc
+APViT-main/mmcls/models/heads/__pycache__/linear_head.cpython-311.pyc
+APViT-main/mmcls/models/heads/__pycache__/base_head.cpython-311.pyc
+APViT-main/mmcls/models/vit/__pycache__/vit_siam_merge.cpython-311.pyc
+APViT-main/mmcls/models/vit/__pycache__/vit.cpython-311.pyc
+APViT-main/mmcls/models/heads/__pycache__/linear_head.cpython-311.pyc
+APViT-main/mmcls/models/heads/__pycache__/base_head.cpython-311.pyc
+APViT-main/mmcls/models/classifiers/__pycache__/pool_vit.cpython-311.pyc
